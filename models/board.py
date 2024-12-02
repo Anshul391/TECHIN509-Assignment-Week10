@@ -7,6 +7,7 @@ class Board:
         Draw the board of Tic-Tac-Toe game
         """
 
+
     def update_board(self, row: int, col: int, symbol: str) -> bool:
         """
         Update the game board based on location selected by player
@@ -28,6 +29,23 @@ class Board:
         Returns:
             str: The winning symbol ('X' or 'O') if there is a winner, else an empty string
         """
+        winner = False
+        for i in range(3):
+            if self.grid[i][0] == self.grid[i][1] == self.grid[i][2]:
+                print(f'{self.grid[i][1]} won (Horizontal)')
+                winner = True
+            elif self.grid[1][i] == self.grid[2][i] == self.grid[0][i]:
+                print(f"{self.grid[1][i]} won (Vertical)")
+                winner = True
+            if i == 0:
+                if self.grid[0][0] == self.grid[1][1] == self.grid[2][2]:
+                    print(f"{self.grid[0][0]} won Diagonal A")
+                    winner = True
+                elif self.grid[0][2] == self.grid[1][1] == self.grid[2][0]:
+                    print(f"{self.grid[1][1]} won Diagonal B")
+                    winner = True
+        if not winner:
+            print("Draw")
 
     def is_full(self) -> bool:
         """
