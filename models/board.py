@@ -2,11 +2,24 @@ class Board:
     def __init__(self):
         self.grid = [[" " for _ in range(3)] for _ in range(3)]
 
-    def draw_board(self):
-        """
-        Draw the board of Tic-Tac-Toe game
-        """
+    def add_horizontal(self):
+        print(f""" ---""", end="")
+    def next_line(self):
+        print()
+    def add_vertical(self, char):
+        print(f"| {char} ", end="")
 
+    def draw_board(self):
+        for x in range(len(self.grid)):
+            for y in range(len(self.grid[0])):
+                self.add_horizontal()
+            self.next_line()
+            for y in range(len(self.grid[0])):
+                self.add_vertical(self.grid[x][y])
+            print("|")
+        for y in range(len(self.grid[0])):
+                self.add_horizontal()
+        self.next_line()
 
     def update_board(self, row: int, col: int, symbol: str) -> bool:
         """
@@ -29,23 +42,20 @@ class Board:
         Returns:
             str: The winning symbol ('X' or 'O') if there is a winner, else an empty string
         """
-        winner = False
         for i in range(3):
-            if self.grid[i][0] == self.grid[i][1] == self.grid[i][2]:
+            if self.grid[i][0] == self.grid[i][1] == self.grid[i][2] == ('X' or 'O'):
                 print(f'{self.grid[i][1]} won (Horizontal)')
-                winner = True
-            elif self.grid[1][i] == self.grid[2][i] == self.grid[0][i]:
+                return True
+            elif self.grid[1][i] == self.grid[2][i] == self.grid[0][i] == ('X' or 'O'):
                 print(f"{self.grid[1][i]} won (Vertical)")
-                winner = True
+                return True
             if i == 0:
-                if self.grid[0][0] == self.grid[1][1] == self.grid[2][2]:
+                if self.grid[0][0] == self.grid[1][1] == self.grid[2][2] == ('X' or 'O'):
                     print(f"{self.grid[0][0]} won Diagonal A")
-                    winner = True
-                elif self.grid[0][2] == self.grid[1][1] == self.grid[2][0]:
+                    return True
+                elif self.grid[0][2] == self.grid[1][1] == self.grid[2][0] == ('X' or 'O'):
                     print(f"{self.grid[1][1]} won Diagonal B")
-                    winner = True
-        if not winner:
-            print("Draw")
+                    return True
 
     def is_full(self) -> bool:
         """
